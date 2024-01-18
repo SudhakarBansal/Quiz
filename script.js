@@ -1,140 +1,59 @@
-const data = {
-    "results": [
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "Which figure from Greek mythology traveled to the underworld to return his wife Eurydice to the land of the living?",
-            "correct_answer": "Orpheus",
-            "incorrect_answers": [
-                "Hercules",
-                "Perseus",
-                "Daedalus"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "What mythology did the god &quot;Apollo&quot; come from?",
-            "correct_answer": "Greek and Roman",
-            "incorrect_answers": [
-                "Roman and Spanish",
-                "Greek and Chinese",
-                "Greek, Roman and Norse"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "Which Greek &amp; Roman god was known as the god of music, truth and prophecy, healing, the sun and light, plague, poetry, and more?",
-            "correct_answer": "Apollo",
-            "incorrect_answers": [
-                "Aphrodite",
-                "Artemis",
-                "Athena"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "The Nike apparel and footwear brand takes it&#039;s name from the Greek goddess of what?",
-            "correct_answer": "Victory",
-            "incorrect_answers": [
-                "Courage",
-                "Strength",
-                "Honor"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "Who was the only god from Greece who did not get a name change in Rome?",
-            "correct_answer": "Apollo",
-            "incorrect_answers": [
-                "Demeter",
-                "Zeus",
-                "Athena"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "Which of these mythological creatures is said to be half-man and half-horse?",
-            "correct_answer": "Centaur",
-            "incorrect_answers": [
-                "Minotaur",
-                "Pegasus",
-                "Gorgon"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "Who in Greek mythology, who led the Argonauts in search of the Golden Fleece?",
-            "correct_answer": "Jason",
-            "incorrect_answers": [
-                "Castor",
-                "Daedalus",
-                "Odysseus"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "The greek god Poseidon was the god of what?",
-            "correct_answer": "The Sea",
-            "incorrect_answers": [
-                "War",
-                "Sun",
-                "Fire"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "This Greek goddess&#039;s name was chosen for the dwarf planet responsible for discord on Pluto&#039;s classification amongst astronomers.",
-            "correct_answer": "Eris",
-            "incorrect_answers": [
-                "Charon",
-                "Ceres",
-                "Dysnomia"
-            ]
-        },
-        {
-            "type": "multiple",
-            "difficulty": "easy",
-            "category": "Mythology",
-            "question": "In Greek mythology, who is the god of wine?",
-            "correct_answer": "Dionysus",
-            "incorrect_answers": [
-                "Hephaestus",
-                "Demeter",
-                "Apollo"
-            ]
-        }
-    ]
+// Get the value from the URL
+var urlParams = new URLSearchParams(window.location.search);
+var buttonValue = urlParams.get('value');
+
+// Function to fetch quiz data from the API
+async function fetchQuizData(buttonValue) {
+    const api_url = `https://opentdb.com/api.php?amount=10&category=${buttonValue}&difficulty=easy&type=multiple`;
+
+    try {
+        const response = await fetch(api_url);
+        const data = await response.json();
+        return data.results;
+    } catch (error) {
+        console.error('Error fetching quiz data:', error);
+        return [];
+    }
 }
 
-const quesContainer = document.getElementById('quesContainer');
+// Function to display quiz questions in the HTML
+function displayQuizQuestions(questions) {
+    const quesContainer = document.getElementById('quesContainer');
 
-data.results.forEach((element, index) => {
-    const questionDiv = document.createElement('div');
-    const optionDiv = document.createElement('div');
-    questionDiv.classList.add('question');
-    optionDiv.classList.add('option');
-    questionDiv.innerHTML = `<p>${index + 1}. ${element.question}</p>`;
-    optionDiv.innerHTML = `<p>a) ${element.incorrect_answers[0]}</p>
-    <p>b) ${element.incorrect_answers[1]}</p>
-    <p>c) ${element.incorrect_answers[2]}</p>
-    <p>d) ${element.correct_answer}</p>`
-    quesContainer.appendChild(questionDiv);
-    questionDiv.appendChild(optionDiv);
-});
+    questions.forEach((element, index) => {
+        const questionIndex = document.createElement('div');
+        const questionDiv = document.createElement('div');
+        const optionDiv = document.createElement('div');
+
+        questionIndex.classList.add('questionIndex');
+        questionDiv.classList.add('question');
+        optionDiv.classList.add('option');
+
+        questionIndex.innerHTML = `Question ${index + 1} of ${questions.length}:`;
+        questionDiv.innerHTML = `<p>${element.question}</p>`;
+        optionDiv.innerHTML = `<button>a) ${element.incorrect_answers[0]}</button>
+            <button>b) ${element.incorrect_answers[1]}</button>
+            <button>c) ${element.incorrect_answers[2]}</button>
+            <button>d) ${element.correct_answer}</button>`;
+
+        quesContainer.appendChild(questionIndex);
+        quesContainer.appendChild(questionDiv);
+        questionDiv.appendChild(optionDiv);
+    });
+}
+
+// Execute the logic
+(async function () {
+    if (!buttonValue) {
+        console.error('Button value not found in the URL.');
+        return;
+    }
+
+    const quizData = await fetchQuizData(buttonValue);
+
+    if (quizData.length > 0) {
+        displayQuizQuestions(quizData);
+    } else {
+        console.error('No quiz data available.');
+    }
+})();

@@ -13,38 +13,40 @@
         <h1>Quiz Time!</h1>
     </header>
     <main>
-        <h2>Select your area of interest:</h2>
-        <div class="interest-options">
-            <button class="interest-option">General Knowledge</button>
-            <button class="interest-option">Books</button>
-            <button class="interest-option">Film</button>
-            <button class="interest-option">Music</button>
-            <button class="interest-option">Musicals & Theatres</button>
-            <button class="interest-option">Books</button>
-            <button class="interest-option">Television</button>
-            <button class="interest-option">Video Games</button>
-            <button class="interest-option">Board Games</button>
-            <button class="interest-option">Science & Nature</button>
-            <button class="interest-option">Computers</button>
-            <button class="interest-option">Mathematics</button>
-            <button class="interest-option">Mythology</button>
-            <button class="interest-option">Sports</button>
-            <button class="interest-option">Geography</button>
-            <button class="interest-option">History</button>
-            <button class="interest-option">Politics</button>
-            <button class="interest-option">Art</button>
-            <button class="interest-option">Celebrities</button>
-            <button class="interest-option">Animals</button>
-            <button class="interest-option">Vehicles</button>
-            <button class="interest-option">Science: Gadgets</button>
-
-            <!-- Add more options as needed -->
+        <h1>Select your area of interest:</h1>
+        <div class="interest-options card">
+            <button class="interest-option" onclick="redirectToQuiz(9)">General Knowledge</button>
+            <button class="interest-option" onclick="redirectToQuiz(10)">Books</button>
+            <button class="interest-option" onclick="redirectToQuiz(11)">Film</button>
+            <button class="interest-option" onclick="redirectToQuiz(12)">Music</button>
+            <button class="interest-option" onclick="redirectToQuiz(13)">Musicals & Theatres</button>
+            <button class="interest-option" onclick="redirectToQuiz(14)">Television</button>
+            <button class="interest-option" onclick="redirectToQuiz(15)">Video Games</button>
+            <button class="interest-option" onclick="redirectToQuiz(16)">Board Games</button>
+            <button class="interest-option" onclick="redirectToQuiz(17)">Science & Nature</button>
+            <button class="interest-option" onclick="redirectToQuiz(18)">Computers</button>
+            <button class="interest-option" onclick="redirectToQuiz(19)">Mathematics</button>
+            <button class="interest-option" onclick="redirectToQuiz(20)">Mythology</button>
+            <button class="interest-option" onclick="redirectToQuiz(21)">Sports</button>
+            <button class="interest-option" onclick="redirectToQuiz(22)">Geography</button>
+            <button class="interest-option" onclick="redirectToQuiz(23)">History</button>
+            <button class="interest-option" onclick="redirectToQuiz(24)">Politics</button>
+            <button class="interest-option" onclick="redirectToQuiz(25)">Art</button>
+            <button class="interest-option" onclick="redirectToQuiz(26)">Celebrities</button>
+            <button class="interest-option" onclick="redirectToQuiz(27)">Animals</button>
+            <button class="interest-option" onclick="redirectToQuiz(28)">Vehicles</button>
+            <button class="interest-option" onclick="redirectToQuiz(30)">Science: Gadgets</button>
         </div>
-        <div id="quesContainer"></div>
-
-
     </main>
+    <script>
+        function redirectToQuiz(value) {
+            // Use encodeURIComponent to ensure proper encoding of special characters
+            var encodedValue = encodeURIComponent(value);
+
+            // Redirect to quiz.html with the value as a query parameter
+            window.location.href = "quiz.html?value=" + encodedValue;
+        }
+    </script>
 </body>
-<script src="script.js"></script>
 
 </html>
