@@ -24,7 +24,7 @@ const questionDiv = document.querySelector('.question');
 const optionDiv = document.querySelector('.option');
 
 // Storing correct and given answers respectively
-const correctAns = [];
+const correctAns = [], givenAns = [];
 
 function displayQuizQuestions(questions) {
     questionIndex.innerHTML = `Question ${questionCounter + 1} of ${questions.length}:`;
@@ -43,9 +43,12 @@ function displayQuizQuestions(questions) {
 }
 
 const nextQuestion = () => {
+    const selectedOption = document.querySelector('.selected').innerHTML.toString();
     if (questionCounter <= 9) {
+        givenAns.push(selectedOption);
         displayQuizQuestions(quizData);
     } else {
+        givenAns.push(selectedOption);
         console.error('No quiz data available.');
     }
 };
