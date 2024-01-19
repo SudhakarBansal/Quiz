@@ -1,6 +1,8 @@
 // Get the value from the URL
-var urlParams = new URLSearchParams(window.location.search);
-var buttonValue = urlParams.get('value');
+const urlParams = new URLSearchParams(window.location.search);
+const buttonValue = urlParams.get('value');
+let quizData = null;
+let questionCounter = 0;
 
 // Function to fetch quiz data from the API
 async function fetchQuizData(buttonValue) {
@@ -17,40 +19,36 @@ async function fetchQuizData(buttonValue) {
 }
 
 // Function to display quiz questions in the HTML
+const questionIndex = document.querySelector('.questionIndex');
+const questionDiv = document.querySelector('.question');
+const optionDiv = document.querySelector('.option');
+
+// Storing correct and given answers respectively
+const correctAns = [];
+
 function displayQuizQuestions(questions) {
-    const quesContainer = document.getElementById('quesContainer');
+    questionIndex.innerHTML = `Question ${questionCounter + 1} of ${questions.length}:`;
+    questionDiv.innerHTML = `<p>${questions[questionCounter].question}</p>`;
 
-    //storing correct and given ans respectively
-    const correctAns=[], givenAns=[];
+    correctAns.push(questions[questionCounter].correct_answer);
 
-    questions.forEach((element, index) => {
-        const questionIndex = document.createElement('div');
-        const questionDiv = document.createElement('div');
-        const optionDiv = document.createElement('div');
+    const options = [...questions[questionCounter].incorrect_answers, questions[questionCounter].correct_answer];
+    const shuffledOptions = shuffle(options);
 
-        questionIndex.classList.add('questionIndex');
-        questionDiv.classList.add('question');
-        optionDiv.classList.add('option');
+    optionDiv.innerHTML = shuffledOptions
+        .map((option, index) => `<button onclick="selectOption(this)">${option}</button>`)
+        .join('');
 
-
-
-        questionIndex.innerHTML = `Question ${index + 1} of ${questions.length}:`;
-        questionDiv.innerHTML = `<p>${element.question}</p>`;
-
-        correctAns.push(`${element.correct_answer}`);
-        var myArray = [`${element.incorrect_answers[0]}`,`${element.incorrect_answers[1]}`, `${element.incorrect_answers[2]}`, `${element.correct_answer}`]; 
-       var shuffledArray = shuffle(myArray); 
-        optionDiv.innerHTML = `<button>a)${shuffledArray[0]}</button>
-            <button>b)${shuffledArray[1]} </button>
-            <button>c)${shuffledArray[2]}</button>
-            <button>d)${shuffledArray[3]}</button>`;
-
-        quesContainer.appendChild(questionIndex);
-        quesContainer.appendChild(questionDiv);
-        questionDiv.appendChild(optionDiv);
-    });
-    console.log(correctAns)
+    questionCounter++;
 }
+
+const nextQuestion = () => {
+    if (questionCounter <= 9) {
+        displayQuizQuestions(quizData);
+    } else {
+        console.error('No quiz data available.');
+    }
+};
 
 // Execute the logic
 (async function () {
@@ -59,7 +57,7 @@ function displayQuizQuestions(questions) {
         return;
     }
 
-    const quizData = await fetchQuizData(buttonValue);
+    quizData = await fetchQuizData(buttonValue);
 
     if (quizData.length > 0) {
         displayQuizQuestions(quizData);
@@ -68,16 +66,13 @@ function displayQuizQuestions(questions) {
     }
 })();
 
+// Function to shuffle options
+const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
-//when data is fetched then add correct ans to array usig push-done 
-//add selected ans to another array
-//compare both arrays
-//display score
-// option should change color when selected (on click value is accessed and then stored in array)
+const selectOption = (button) => {
+    // Deselect all buttons
+    document.querySelectorAll('.option button').forEach(btn => btn.classList.remove('selected'));
 
-
-//to shuffle options
-const shuffle = (array) => { 
-  return array.sort(() => Math.random() - 0.5); 
-}; 
-
+    // Select the clicked button
+    button.classList.add('selected');
+};

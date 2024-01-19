@@ -7,10 +7,6 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 /* Header styles */
@@ -94,8 +90,8 @@ main h1 {
     margin: 10px 0;
     padding: 10px;
     width: 100%;
-    background-color: #3498db;
-    color: #fff;
+    background-color: #E7E9EB;
+    color: #000;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -105,7 +101,7 @@ main h1 {
 }
 
 .option button:hover {
-    background-color: #2980b9;
+    background-color: #cacaca;
 }
 
 /* Question index styles */
@@ -113,4 +109,26 @@ main h1 {
     font-size: 26px;
     font-weight: 400;
     margin: 10px 0;
+}
+
+.option button.selected {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+/* Next button styles */
+.next-button {
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #1d5981;
 }
