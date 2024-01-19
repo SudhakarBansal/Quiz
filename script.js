@@ -20,6 +20,9 @@ async function fetchQuizData(buttonValue) {
 function displayQuizQuestions(questions) {
     const quesContainer = document.getElementById('quesContainer');
 
+    //storing correct and given ans respectively
+    const correctAns=[], givenAns=[];
+
     questions.forEach((element, index) => {
         const questionIndex = document.createElement('div');
         const questionDiv = document.createElement('div');
@@ -29,17 +32,24 @@ function displayQuizQuestions(questions) {
         questionDiv.classList.add('question');
         optionDiv.classList.add('option');
 
+
+
         questionIndex.innerHTML = `Question ${index + 1} of ${questions.length}:`;
         questionDiv.innerHTML = `<p>${element.question}</p>`;
-        optionDiv.innerHTML = `<button>a) ${element.incorrect_answers[0]}</button>
-            <button>b) ${element.incorrect_answers[1]}</button>
-            <button>c) ${element.incorrect_answers[2]}</button>
-            <button>d) ${element.correct_answer}</button>`;
+
+        correctAns.push(`${element.correct_answer}`);
+        var myArray = [`${element.incorrect_answers[0]}`,`${element.incorrect_answers[1]}`, `${element.incorrect_answers[2]}`, `${element.correct_answer}`]; 
+       var shuffledArray = shuffle(myArray); 
+        optionDiv.innerHTML = `<button>a)${shuffledArray[0]}</button>
+            <button>b)${shuffledArray[1]} </button>
+            <button>c)${shuffledArray[2]}</button>
+            <button>d)${shuffledArray[3]}</button>`;
 
         quesContainer.appendChild(questionIndex);
         quesContainer.appendChild(questionDiv);
         questionDiv.appendChild(optionDiv);
     });
+    console.log(correctAns)
 }
 
 // Execute the logic
@@ -57,3 +67,17 @@ function displayQuizQuestions(questions) {
         console.error('No quiz data available.');
     }
 })();
+
+
+//when data is fetched then add correct ans to array usig push-done 
+//add selected ans to another array
+//compare both arrays
+//display score
+// option should change color when selected (on click value is accessed and then stored in array)
+
+
+//to shuffle options
+const shuffle = (array) => { 
+  return array.sort(() => Math.random() - 0.5); 
+}; 
+
