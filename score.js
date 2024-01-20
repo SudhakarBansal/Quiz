@@ -14,7 +14,11 @@ questions.forEach((element, index) => {
     const questionDiv = document.createElement('div');
     const correctAnsDiv = document.createElement('div');
     const userAnsDiv = document.createElement('div');
-    questionDiv.classList.add('question', 'card');
+    if (correctAnswers[index] == givenAnswers[index]) {
+        questionDiv.classList.add('question-correct', 'card');
+    } else {
+        questionDiv.classList.add('question-wrong', 'card');
+    }
     questionDiv.innerHTML = `<p>${index + 1}. ${element}</p>`;
     correctAnsDiv.innerHTML = `<strong>Correct Answer:</strong> ${correctAnswers[index]}`;
     userAnsDiv.innerHTML = `<strong>Your Answer:</strong> ${givenAnswers[index]}`;

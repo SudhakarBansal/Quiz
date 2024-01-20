@@ -148,3 +148,13 @@ main h1 {
     margin-top: 20px;
     text-align: left;
 }
+
+.question-correct {
+    background-color: #b7e7b8;
+    margin: 20px 0px;
+}
+
+.question-wrong {
+    background-color: rgb(250, 199, 199);
+    margin: 20px 0px;
+}
