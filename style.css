@@ -133,14 +133,18 @@ main h1 {
     background-color: #1d5981;
 }
 
-.score{
-    color: green;
-    border: 2px solid grey;
+/* Score styles */
+.score {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    font-weight: bold;
-    font-size: 30px;
-    padding: 100px;
-    position: absolute;
-    top:30%;
-    left:30%;
+}
+
+/* Score Result styles */
+#scoreResult {
+    margin-top: 20px;
+    text-align: left;
 }

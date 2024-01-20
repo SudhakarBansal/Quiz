@@ -24,13 +24,14 @@ const questionDiv = document.querySelector('.question');
 const optionDiv = document.querySelector('.option');
 
 // Storing correct and given answers respectively
-const correctAns = [], givenAns = [];
+const correctAns = [], givenAns = [], questionsArray = [];
 
 function displayQuizQuestions(questions) {
     questionIndex.innerHTML = `Question ${questionCounter + 1} of ${questions.length}:`;
     questionDiv.innerHTML = `<p>${questions[questionCounter].question}</p>`;
 
     correctAns.push(questions[questionCounter].correct_answer);
+    questionsArray.push(questions[questionCounter].question)
 
     const options = [...questions[questionCounter].incorrect_answers, questions[questionCounter].correct_answer];
     const shuffledOptions = shuffle(options);
@@ -38,12 +39,11 @@ function displayQuizQuestions(questions) {
     optionDiv.innerHTML = shuffledOptions
         .map((option, index) => `<button onclick="selectOption(this)">${option}</button>`)
         .join('');
-    
-        //in last quaestion the next button changes to submit button
-        if(questionCounter==9)
-        {
-            document.querySelector('.next-button').innerHTML="Submit";
-        }
+
+    //in last quaestion the next button changes to submit button
+    if (questionCounter == 9) {
+        document.querySelector('.next-button').innerHTML = "Submit";
+    }
 
     questionCounter++;
 }
@@ -51,16 +51,16 @@ function displayQuizQuestions(questions) {
 //displaying next question
 const nextQuestion = () => {
     const selectedOption = document.querySelector('.selected').innerHTML.toString();
-    if (questionCounter <=9) {
+    if (questionCounter <= 9) {
         givenAns.push(selectedOption);
         displayQuizQuestions(quizData);
-    } 
+    }
     else {
         givenAns.push(selectedOption);
         console.error('No quiz data available.');
         //end of quiz-score calculation
         calculateScore();
-        
+
     }
 };
 
@@ -92,17 +92,25 @@ const selectOption = (button) => {
     button.classList.add('selected');
 };
 
-//calculating score and redirecting
-const calculateScore=()=>{
-    var score=0;
-    for(i=0;i<10;i++)
-    {
-        if(correctAns[i]==givenAns[i])
-        {
+/// Function to calculate score and redirecting
+const calculateScore = () => {
+    var score = 0;
+    for (i = 0; i < 10; i++) {
+        if (correctAns[i] == givenAns[i]) {
             score++;
         }
     }
-    window.location.href = "score.html?value=" + score;
-}
+
+    // Append arrays as parameters to the URL
+    const urlParams = new URLSearchParams();
+    urlParams.set('value', score);
+    urlParams.set('questions', JSON.stringify(questionsArray));
+    urlParams.set('correctAnswers', JSON.stringify(correctAns));
+    urlParams.set('givenAnswers', JSON.stringify(givenAns));
+
+    // Redirect to score.html with parameters
+    window.location.href = "score.html?" + urlParams.toString();
+};
+
 
 
