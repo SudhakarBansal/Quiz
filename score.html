@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Board</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- to display score -->
+    <div class="score"> </div>
+    
+    <script>
+        //getting score value from url
+        const urlParams = new URLSearchParams(window.location.search);
+        var scoreval= urlParams.get('value');
+        document.querySelector('.score').innerHTML=`Your score is ${scoreval}/10!`;
+    </script>
+</body>
+</html>

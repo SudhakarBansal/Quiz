@@ -132,3 +132,15 @@ main h1 {
 .next-button:hover {
     background-color: #1d5981;
 }
+
+.score{
+    color: green;
+    border: 2px solid grey;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    padding: 100px;
+    position: absolute;
+    top:30%;
+    left:30%;
+}
