@@ -6,7 +6,7 @@ let questionCounter = 0;
 
 // Function to fetch quiz data from the API
 async function fetchQuizData(buttonValue) {
-    const api_url = `https://opentdb.com/api.php?amount=10&category=${buttonValue}&difficulty=easy&type=multiple`;
+    const api_url = `https://opentdb.com/api.php?amount=10&category=${buttonValue}&type=multiple`;
 
     try {
         const response = await fetch(api_url);
@@ -30,7 +30,11 @@ function displayQuizQuestions(questions) {
     questionIndex.innerHTML = `Question ${questionCounter + 1} of ${questions.length}:`;
     questionDiv.innerHTML = `<p>${questions[questionCounter].question}</p>`;
 
-    correctAns.push(questions[questionCounter].correct_answer);
+    // Use a temporary DOM element for decoding HTML entities
+    let tempElement = document.createElement('div');
+    tempElement.innerHTML = questions[questionCounter].correct_answer;
+    correctAns.push(tempElement.textContent || tempElement.innerText);
+
     questionsArray.push(questions[questionCounter].question)
 
     const options = [...questions[questionCounter].incorrect_answers, questions[questionCounter].correct_answer];
