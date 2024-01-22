@@ -10,6 +10,7 @@ body {
     background-image: url('bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
 }
 
 /* Header styles */
@@ -158,4 +159,18 @@ main h1 {
 .question-wrong {
     background-color: rgb(250, 199, 199);
     margin: 20px 0px;
+}
+
+
+#clock {
+    height: 60px;
+    margin: 10vh 10vh 5vh 10vh;
+    background-color: rgba(26, 26, 26, 0.7);
+    width: 60px;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
 }

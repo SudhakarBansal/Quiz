@@ -1,3 +1,7 @@
+let timer;
+let intervalCounter = 0;
+let timerExpired = false;
+
 // Get the value from the URL
 const urlParams = new URLSearchParams(window.location.search);
 const buttonValue = urlParams.get('value');
@@ -27,15 +31,22 @@ const optionDiv = document.querySelector('.option');
 const correctAns = [], givenAns = [], questionsArray = [];
 
 function displayQuizQuestions(questions) {
+    // Clear the timer before starting a new one
+    clearInterval(timer);
+    intervalCounter = 10; // Reset intervalCounter
+    timerExpired = false; // Reset the timerExpired flag
+
     questionIndex.innerHTML = `Question ${questionCounter + 1} of ${questions.length}:`;
     questionDiv.innerHTML = `<p>${questions[questionCounter].question}</p>`;
+
+    startTimer(); // Remove the argument, as intervalCounter is now global
 
     // Use a temporary DOM element for decoding HTML entities
     let tempElement = document.createElement('div');
     tempElement.innerHTML = questions[questionCounter].correct_answer;
     correctAns.push(tempElement.textContent || tempElement.innerText);
 
-    questionsArray.push(questions[questionCounter].question)
+    questionsArray.push(questions[questionCounter].question);
 
     const options = [...questions[questionCounter].incorrect_answers, questions[questionCounter].correct_answer];
     const shuffledOptions = shuffle(options);
@@ -44,7 +55,7 @@ function displayQuizQuestions(questions) {
         .map((option, index) => `<button onclick="selectOption(this)">${option}</button>`)
         .join('');
 
-    //in last quaestion the next button changes to submit button
+    // In the last question, the next button changes to the submit button
     if (questionCounter == 9) {
         document.querySelector('.next-button').innerHTML = "Submit";
     }
@@ -52,22 +63,47 @@ function displayQuizQuestions(questions) {
     questionCounter++;
 }
 
-//displaying next question
+// Displaying next question
 const nextQuestion = () => {
-    const selectedOption = document.querySelector('.selected').innerHTML.toString();
-    if (questionCounter <= 9) {
-        givenAns.push(selectedOption);
-        displayQuizQuestions(quizData);
-    }
-    else {
-        givenAns.push(selectedOption);
-        console.error('No quiz data available.');
-        //end of quiz-score calculation
-        calculateScore();
+    // Check if the timer has already expired to prevent multiple calls
+    if (!timerExpired) {
+        // Clear the timer before moving to the next question
+        clearInterval(timer);
 
+        const selectedOption = document.querySelector('.selected');
+        if (questionCounter <= 9) {
+            if (selectedOption == null) {
+                givenAns.push("Time limit Exceeded");
+            } else {
+                const selectedValue = selectedOption.innerHTML.toString();
+                givenAns.push(selectedValue);
+            }
+
+            // Move to the next question
+            displayQuizQuestions(quizData);
+        } else {
+            // If on the last question, evaluate the answer
+            if (selectedOption == null && intervalCounter === 0) {
+                // If both the timer is zero and no option selected, add "Time limit Exceeded"
+                givenAns.push("Time limit Exceeded");
+            } else if (selectedOption != null) {
+                // If an option is selected, add its value
+                const selectedValue = selectedOption.innerHTML.toString();
+                givenAns.push(selectedValue);
+            } else {
+                // Handle other cases (you can customize this part based on your requirements)
+                givenAns.push("Not Answered");
+            }
+
+            console.error('No quiz data available.');
+            // End of quiz-score calculation
+            calculateScore();
+
+            // Set the flag to prevent multiple calls
+            timerExpired = true;
+        }
     }
 };
-
 
 // Execute the logic
 (async function () {
@@ -96,10 +132,10 @@ const selectOption = (button) => {
     button.classList.add('selected');
 };
 
-/// Function to calculate score and redirecting
+// Function to calculate score and redirecting
 const calculateScore = () => {
     var score = 0;
-    for (i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
         if (correctAns[i] == givenAns[i]) {
             score++;
         }
@@ -116,5 +152,15 @@ const calculateScore = () => {
     window.location.href = "score.html?" + urlParams.toString();
 };
 
-
-
+const startTimer = () => {
+    const clockDiv = document.querySelector('#clock');
+    timer = setInterval(() => {
+        clockDiv.innerHTML = intervalCounter;
+        if (intervalCounter === 0) {
+            clearInterval(timer);
+            nextQuestion();
+        } else {
+            intervalCounter--;
+        }
+    }, 1000);
+}
