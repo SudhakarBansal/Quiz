@@ -26,7 +26,8 @@ async function fetchQuizData(buttonValue) {
 const questionIndex = document.querySelector('.questionIndex');
 const questionDiv = document.querySelector('.question');
 const optionDiv = document.querySelector('.option');
-
+const nextButton = document.querySelector('.next-button');
+nextButton.disabled = true; //disbale the button in the begining
 // Storing correct and given answers respectively
 const correctAns = [], givenAns = [], questionsArray = [];
 
@@ -81,6 +82,11 @@ const nextQuestion = () => {
 
             // Move to the next question
             displayQuizQuestions(quizData);
+
+
+            // Disable the next button again
+            nextButton.disabled = true;
+
         } else {
             // If on the last question, evaluate the answer
             if (selectedOption == null && intervalCounter === 0) {
@@ -130,6 +136,9 @@ const selectOption = (button) => {
 
     // Select the clicked button
     button.classList.add('selected');
+
+    // Enable the next button
+    nextButton.disabled = false;
 };
 
 // Function to calculate score and redirecting

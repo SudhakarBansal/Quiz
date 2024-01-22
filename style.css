@@ -135,6 +135,10 @@ main h1 {
     background-color: #1d5981;
 }
 
+.next-button:disabled {
+    cursor: not-allowed;
+}
+
 /* Score styles */
 .score {
     background-color: #4CAF50;
