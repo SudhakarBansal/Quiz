@@ -133,17 +133,16 @@ const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 const selectOption = (button) => {
     let stopExecution = false;
 
+    if (button.classList.contains('selected')) {   //checking if selected button is choosen again
+        button.classList.remove('selected');       // deselect the selected in that case
+        stopExecution = true;
+        nextButton.disabled = true;
+    }
+
     // Deselect all buttons
     const buttons = document.querySelectorAll('.option button');
     for (let i = 0; i < buttons.length; i++) {      //Tranversing through all buttons
         const btn = buttons[i];
-
-        if (btn.classList.contains('selected')) {   //checking ig selected button is choosen again
-            btn.classList.remove('selected');       // deselect the selected in that case
-            stopExecution = true;
-            nextButton.disabled = true;
-            break; // Exit the loop
-        }
         btn.classList.remove('selected');
     }
 

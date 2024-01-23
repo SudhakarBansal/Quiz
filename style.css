@@ -154,6 +154,7 @@ main ul li {
 #scoreResult {
     margin-top: 20px;
     text-align: left;
+    color: #000;
 }
 
 .question-correct {
