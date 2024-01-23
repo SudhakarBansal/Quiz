@@ -6,7 +6,6 @@
 /* Body styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
     background-image: url('bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -27,10 +26,12 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: white;
 }
 
-main h1 {
-    color: white;
+main ul li {
+    font-size: 18px;
+    list-style: none;
 }
 
 /* Card styles */
@@ -177,4 +178,15 @@ main h1 {
     align-items: center;
     justify-content: center;
     font-size: 30px;
+}
+
+.instruction-button {
+    background-color: #081e2c;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website - Instructions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Quizy</h1>
+    </header>
+    <main>
+        <div class="card">
+            <h2>Please follow these Instructions!</h2>
+            <ul>
+                <li class="card">Please don't reload the page during your quiz.</li>
+                <li class="card">You will be asked 10 questions.</li>
+                <li class="card">15 seconds will be given for each answer.</li>
+                <li class="card">Selected Option will be recieved as your answer if timer goes off.</li>
+                <li class="card">Click again on selected option to unselect it.</li>
+            </ul>
+
+            <button class="instruction-button" onclick="startQuiz()">Move to Quiz</button>
+        </div>
+    </main>
+</body>
+<script>
+    const urlParams = new URLSearchParams(window.location.search).get('value');
+
+    const startQuiz = () => {
+        // Redirect to quiz.html with the value as a query parameter
+        window.location.href = "quiz.html?value=" + urlParams;
+    }
+</script>
+
+</html>

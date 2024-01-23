@@ -34,7 +34,7 @@ const correctAns = [], givenAns = [], questionsArray = [];
 function displayQuizQuestions(questions) {
     // Clear the timer before starting a new one
     clearInterval(timer);
-    intervalCounter = 10; // Reset intervalCounter
+    intervalCounter = 15; // Reset intervalCounter
     timerExpired = false; // Reset the timerExpired flag
 
     questionIndex.innerHTML = `Question ${questionCounter + 1} of ${questions.length}:`;
@@ -131,8 +131,26 @@ const nextQuestion = () => {
 const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
 const selectOption = (button) => {
+    let stopExecution = false;
+
     // Deselect all buttons
-    document.querySelectorAll('.option button').forEach(btn => btn.classList.remove('selected'));
+    const buttons = document.querySelectorAll('.option button');
+    for (let i = 0; i < buttons.length; i++) {      //Tranversing through all buttons
+        const btn = buttons[i];
+
+        if (btn.classList.contains('selected')) {   //checking ig selected button is choosen again
+            btn.classList.remove('selected');       // deselect the selected in that case
+            stopExecution = true;
+            nextButton.disabled = true;
+            break; // Exit the loop
+        }
+        btn.classList.remove('selected');
+    }
+
+    // Check if we should stop the execution
+    if (stopExecution) {
+        return;
+    }
 
     // Select the clicked button
     button.classList.add('selected');
