@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Website - Instructions</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/utils.css">
+    <link rel="stylesheet" href="./css/instruction.css">
 </head>
 
 <body>
     <header>
-        <img src="logo.png" alt="Quizy">
+        <img src="./images/logo.png" alt="Quizy">
     </header>
     <main>
         <div class="card">
@@ -26,14 +27,7 @@
             <button class="instruction-button" onclick="startQuiz()">Move to Quiz</button>
         </div>
     </main>
+    <script src="./javaScript/instruction.js"></script>
 </body>
-<script>
-    const urlParams = new URLSearchParams(window.location.search).get('value');
-
-    const startQuiz = () => {
-        // Redirect to quiz.html with the value as a query parameter
-        window.location.href = "quiz.html?value=" + urlParams;
-    }
-</script>
 
 </html>

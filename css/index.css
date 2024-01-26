@@ -1,0 +1,23 @@
+/* Interest options styles */
+.interest-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.interest-option {
+    background-color: rgb(24, 38, 48);
+    color: #fff;
+    border: none;
+    padding: 15px 18px;
+    margin: 10px 5px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.interest-option:hover {
+    background-color: #2980b9;
+}

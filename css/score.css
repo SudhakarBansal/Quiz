@@ -1,0 +1,26 @@
+/* Score styles */
+.score {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Score Result styles */
+#scoreResult {
+    margin-top: 20px;
+    text-align: left;
+    color: #000;
+}
+
+.question-correct {
+    background-color: #b7e7b8;
+    margin: 20px 0px;
+}
+
+.question-wrong {
+    background-color: rgb(250, 199, 199);
+    margin: 20px 0px;
+}

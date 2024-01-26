@@ -1,5 +1,5 @@
 let timer;
-let intervalCounter = 0;
+let countdownCounter = 0;
 let timerExpired = false;
 const speechSynthesis = window.speechSynthesis; //it is a entry point into using web speech api
 
@@ -23,25 +23,28 @@ async function fetchQuizData(buttonValue) {
     }
 }
 
-// Function to display quiz questions in the HTML
+// DOM elements for quiz display
 const questionIndex = document.querySelector('.questionIndex');
 const questionDiv = document.querySelector('.question');
 const optionDiv = document.querySelector('.option');
 const nextButton = document.querySelector('.next-button');
 nextButton.disabled = true; //disbale the button in the begining
-// Storing correct and given answers respectively
+
+// Arrays to store correct and given answers
 const correctAns = [], givenAns = [], questionsArray = [];
 
+// Function to display quiz questions in the HTML
 function displayQuizQuestions(questions) {
+
     // Clear the timer before starting a new one
     clearInterval(timer);
-    intervalCounter = 15; // Reset intervalCounter
+    countdownCounter = 15; // Reset countdownCounter
     timerExpired = false; // Reset the timerExpired flag
 
     questionIndex.innerHTML = `Question ${questionCounter + 1} of ${questions.length}:`;
     questionDiv.innerHTML = `${questions[questionCounter].question}`
 
-    startTimer(); // Remove the argument, as intervalCounter is now global
+    startTimer();
 
     // Use a temporary DOM element for decoding HTML entities
     let tempElement = document.createElement('div');
@@ -59,6 +62,8 @@ function displayQuizQuestions(questions) {
         const utterance = new SpeechSynthesisUtterance(textToSpeak);// interface gets and sets the voice that will be used to speak the utterance.
         speechSynthesis.speak(utterance);
     }
+
+    // Adding Options in DOM
     optionDiv.innerHTML = shuffledOptions
         .map((option, index) => `<button onclick="selectOption(this)">${option}</button>`)
         .join('');
@@ -73,6 +78,7 @@ function displayQuizQuestions(questions) {
 
 // Displaying next question
 const nextQuestion = () => {
+
     // Cancel the speech
     speechSynthesis.cancel();
 
@@ -99,7 +105,7 @@ const nextQuestion = () => {
 
         } else {
             // If on the last question, evaluate the answer
-            if (selectedOption == null && intervalCounter === 0) {
+            if (selectedOption == null && countdownCounter === 0) {
                 // If both the timer is zero and no option selected, add "Time limit Exceeded"
                 givenAns.push("Time limit Exceeded");
             } else if (selectedOption != null) {
@@ -111,7 +117,6 @@ const nextQuestion = () => {
                 givenAns.push("Not Answered");
             }
 
-            console.error('No quiz data available.');
             // End of quiz-score calculation
             calculateScore();
 
@@ -121,14 +126,14 @@ const nextQuestion = () => {
     }
 };
 
-// Execute the logic
+// Execute the logic-- entry point of quiz.js
 (async function () {
     if (!buttonValue) {
         console.error('Button value not found in the URL.');
         return;
     }
 
-    quizData = await fetchQuizData(buttonValue);
+    quizData = await fetchQuizData(buttonValue);    //Storing fetched data in variable
 
     if (quizData.length > 0) {
         displayQuizQuestions(quizData);
@@ -188,15 +193,17 @@ const calculateScore = () => {
     window.location.href = "score.html?" + urlParams.toString();
 };
 
+
+// Countdown function
 const startTimer = () => {
     const clockDiv = document.querySelector('#clock');
     timer = setInterval(() => {
-        clockDiv.innerHTML = intervalCounter;
-        if (intervalCounter === 0) {
+        clockDiv.innerHTML = countdownCounter;
+        if (countdownCounter === 0) {
             clearInterval(timer);
             nextQuestion();
         } else {
-            intervalCounter--;
+            countdownCounter--;
         }
     }, 1000);
 }

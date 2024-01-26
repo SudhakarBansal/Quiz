@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('../images/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+/* Header styles */
+header {
+    padding: 20px 0;
+    color: #fff;
+    margin: 4vh 0 1vh 7vh;
+}
+
+/* logo */
+header img {
+    width: 100px;
+    filter: grayscale(100%);
+}
+
+/* Main styles */
+main {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+/* Card styles */
+.card {
+    background-color: rgba(175, 175, 175, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    margin: 20px;
+    max-width: 700px;
+}

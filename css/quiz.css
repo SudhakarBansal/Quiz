@@ -1,0 +1,80 @@
+/* Question container styles */
+#quesContainer {
+    text-align: justify;
+}
+
+/* Question index styles */
+.questionIndex {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #fff;
+}
+
+/* Question styles */
+.question {
+    font-size: 18px;
+    margin: 20px 0px;
+    color: #fff;
+    font-weight: 400;
+}
+
+/* Option button styles */
+.option button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    background-color: #E7E9EB;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: left;
+    font-size: 16px;
+}
+
+.option button:hover {
+    background-color: #cacaca;
+}
+
+.option button.selected {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+/* Next button styles */
+.next-button {
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    padding: 15px 20px;
+    margin-top: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #1d5981;
+}
+
+.next-button:disabled {
+    cursor: not-allowed;
+}
+
+/* Countdown Timer */
+#clock {
+    height: 60px;
+    margin: 0vh 10vh 0vh 10vh;
+    background-color: rgba(26, 26, 26, 0.7);
+    width: 60px;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
