@@ -5,6 +5,20 @@ const questions = JSON.parse(urlParam.get('questions'));
 const correctAnswers = JSON.parse(urlParam.get('correctAnswers'));
 const givenAnswers = JSON.parse(urlParam.get('givenAnswers'));
 
+const speechSynthesis = window.speechSynthesis; //it is a entry point into using web speech api
+const scoreSpeech = `You Scored ${scoreval} out of 10;`;
+if (scoreval <= 3) {
+    conditionalSpeech = scoreSpeech + " " + "No Problem! better luck next Time;";
+} else if (scoreval > 3 && scoreval <= 6) {
+    conditionalSpeech = scoreSpeech + " " + "Hmmmm Nice Try; better luck next Time;";
+} else {
+    conditionalSpeech = scoreSpeech + " " + "Congrats! you achived a solid score;"
+}
+textToSpeak = conditionalSpeech + " " + "Thanks for Using Quizy; By";
+if (textToSpeak) {
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);// interface gets and sets the voice that will be used to speak the utterance.
+    speechSynthesis.speak(utterance);
+}
 document.querySelector('.score').innerHTML = `<h1>Your Score</h1><p>${scoreval}/10</p>`;
 
 // Display score details after redirecting to score.html
@@ -26,4 +40,4 @@ questions.forEach((element, index) => {
     scoreDetailsContainer.appendChild(questionDiv);
     questionDiv.appendChild(correctAnsDiv);
     questionDiv.appendChild(userAnsDiv);
-});        
+});

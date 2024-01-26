@@ -1,6 +1,7 @@
 let timer;
 let intervalCounter = 0;
 let timerExpired = false;
+const speechSynthesis = window.speechSynthesis; //it is a entry point into using web speech api
 
 // Get the value from the URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -38,7 +39,7 @@ function displayQuizQuestions(questions) {
     timerExpired = false; // Reset the timerExpired flag
 
     questionIndex.innerHTML = `Question ${questionCounter + 1} of ${questions.length}:`;
-    questionDiv.innerHTML = `<p>${questions[questionCounter].question}</p>`;
+    questionDiv.innerHTML = `${questions[questionCounter].question}`
 
     startTimer(); // Remove the argument, as intervalCounter is now global
 
@@ -52,6 +53,12 @@ function displayQuizQuestions(questions) {
     const options = [...questions[questionCounter].incorrect_answers, questions[questionCounter].correct_answer];
     const shuffledOptions = shuffle(options);
 
+    //Speech Assistance 
+    const textToSpeak = questionDiv.innerHTML + "     " + shuffledOptions.toString();
+    if (textToSpeak) {
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);// interface gets and sets the voice that will be used to speak the utterance.
+        speechSynthesis.speak(utterance);
+    }
     optionDiv.innerHTML = shuffledOptions
         .map((option, index) => `<button onclick="selectOption(this)">${option}</button>`)
         .join('');
@@ -66,6 +73,9 @@ function displayQuizQuestions(questions) {
 
 // Displaying next question
 const nextQuestion = () => {
+    // Cancel the speech
+    speechSynthesis.cancel();
+
     // Check if the timer has already expired to prevent multiple calls
     if (!timerExpired) {
         // Clear the timer before moving to the next question
