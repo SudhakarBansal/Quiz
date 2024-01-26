@@ -16,7 +16,12 @@ body {
 header {
     padding: 20px 0;
     color: #fff;
-    margin: 4vh 0 3vh 7vh;
+    margin: 4vh 0 1vh 7vh;
+}
+
+header img {
+    width: 100px;
+    filter: grayscale(100%);
 }
 
 /* Main styles */
@@ -125,7 +130,7 @@ main ul li {
     color: #fff;
     border: none;
     padding: 15px 20px;
-    margin-top: 20px;
+    margin-top: 5px;
     cursor: pointer;
     font-size: 18px;
     border-radius: 8px;
@@ -170,7 +175,7 @@ main ul li {
 
 #clock {
     height: 60px;
-    margin: 10vh 10vh 5vh 10vh;
+    margin: 0vh 10vh 0vh 10vh;
     background-color: rgba(26, 26, 26, 0.7);
     width: 60px;
     color: white;
