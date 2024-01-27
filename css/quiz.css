@@ -46,9 +46,9 @@
 
 /* Next button styles */
 .next-button {
-    background-color: #2980b9;
+    background-color: #1a3c57;
     color: #fff;
-    border: none;
+    border: 1px solid white;
     padding: 15px 20px;
     margin-top: 5px;
     cursor: pointer;
@@ -58,7 +58,7 @@
 }
 
 .next-button:hover {
-    background-color: #1d5981;
+    background-color: #217992;
 }
 
 .next-button:disabled {
@@ -72,6 +72,7 @@
     background-color: rgba(26, 26, 26, 0.7);
     width: 60px;
     color: white;
+    border: 1px solid white;
     border-radius: 50%;
     display: flex;
     align-items: center;

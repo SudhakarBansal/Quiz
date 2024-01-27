@@ -7,17 +7,18 @@
 }
 
 .interest-option {
-    background-color: rgb(24, 38, 48);
+    background-color: #1a3c57;
     color: #fff;
     border: none;
     padding: 15px 18px;
     margin: 10px 5px;
     cursor: pointer;
     font-size: 18px;
+    border: 1px solid white;
     border-radius: 8px;
     transition: background-color 0.3s ease;
 }
 
 .interest-option:hover {
-    background-color: #2980b9;
+    background-color: #217992;
 }
