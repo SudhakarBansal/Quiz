@@ -24,3 +24,18 @@
     background-color: rgb(250, 199, 199);
     margin: 20px 0px;
 }
+
+.home-button {
+    background-color: #1a3c57;
+    color: #fff;
+    border: 1px solid white;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: #217992;
+}

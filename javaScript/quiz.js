@@ -11,7 +11,7 @@ let questionCounter = 0;
 
 // Function to fetch quiz data from the API
 async function fetchQuizData(buttonValue) {
-    const api_url = `https://opentdb.com/api.php?amount=10&category=${buttonValue}&type=multiple`;
+    const api_url = `https://opentdb.com/api.php?amount=5&category=${buttonValue}&difficulty=easy&type=multiple`;
 
     try {
         const response = await fetch(api_url);
@@ -69,7 +69,7 @@ function displayQuizQuestions(questions) {
         .join('');
 
     // In the last question, the next button changes to the submit button
-    if (questionCounter == 9) {
+    if (questionCounter == 4) {
         document.querySelector('.next-button').innerHTML = "Submit";
     }
 
@@ -88,7 +88,7 @@ const nextQuestion = () => {
         clearInterval(timer);
 
         const selectedOption = document.querySelector('.selected');
-        if (questionCounter <= 9) {
+        if (questionCounter <= 4) {
             if (selectedOption == null) {
                 givenAns.push("Time limit Exceeded");
             } else {
@@ -176,7 +176,7 @@ const selectOption = (button) => {
 // Function to calculate score and redirecting
 const calculateScore = () => {
     var score = 0;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
         if (correctAns[i] == givenAns[i]) {
             score++;
         }

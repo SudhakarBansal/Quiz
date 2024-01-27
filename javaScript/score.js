@@ -7,12 +7,12 @@ const givenAnswers = JSON.parse(urlParam.get('givenAnswers'));
 
 // Speech assistance...
 const speechSynthesis = window.speechSynthesis; //it is a entry point into using web speech api
-const scoreSpeech = `You Scored ${scoreval} out of 10;`;
+const scoreSpeech = `You Scored ${scoreval} out of 5;`;
 let conditionalSpeech = "";
 
-if (scoreval <= 3) {
+if (scoreval <= 2) {
     conditionalSpeech = scoreSpeech + " " + "No Problem! better luck next Time;";
-} else if (scoreval > 3 && scoreval <= 6) {
+} else if (scoreval > 2 && scoreval <= 4) {
     conditionalSpeech = scoreSpeech + " " + "Hmmmm Nice Try; better luck next Time;";
 } else {
     conditionalSpeech = scoreSpeech + " " + "Congrats! you achieved a solid score;";
@@ -25,7 +25,7 @@ if (textToSpeak) {
 }
 
 // showing scores
-document.querySelector('.score').innerHTML = `<h1>Your Score</h1><p>${scoreval}/10</p>`;
+document.querySelector('.score').innerHTML = `<h1>Your Score</h1><p>${scoreval}/5</p>`;
 
 // Display score detail card
 const scoreDetailsContainer = document.getElementById('scoreResult');
